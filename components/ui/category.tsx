@@ -1,32 +1,37 @@
 "use client";
-
-import { useState } from "react";
+import { useState, ReactNode, Children } from "react";
 import { Badge } from "@/components/ui/badge";
 import {
-	Collapsible,
-	CollapsibleContent,
-	CollapsibleTrigger,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 
-export function Category({ name, icon, children }) {
-	const [isOpen, setIsOpen] = useState(false);
+type TProps = {
+  name: string;
+  icon: ReactNode;
+  children?: ReactNode | ReactNode[];
+};
 
-	return (
-		<Collapsible open={isOpen} onOpenChange={setIsOpen}>
-			<CollapsibleTrigger>
-				<Badge
-					className="hover:cursor-pointer select-none text-nowrap h-7"
-					variant={isOpen ? "default" : "secondary"}
-				>
-					{icon}
-					{name}
-				</Badge>
-				<CollapsibleContent>
-					{children && <div className="flex flex-wrap gap-2">
-						{...children}
-					</div>}
-				</CollapsibleContent>
-			</CollapsibleTrigger>
-		</Collapsible>
-	);
+export function Category({ name, icon, children }: TProps) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <Collapsible open={isOpen} onOpenChange={setIsOpen}>
+      <CollapsibleTrigger>
+        <Badge
+          className="hover:cursor-pointer select-none text-nowrap h-7"
+          variant={isOpen ? "default" : "secondary"}
+        >
+          {icon}
+          {name}
+        </Badge>
+        <CollapsibleContent>
+          {Children.count(children) > 0 && (
+            <div className="flex flex-wrap gap-2">{children}</div>
+          )}
+        </CollapsibleContent>
+      </CollapsibleTrigger>
+    </Collapsible>
+  );
 }
