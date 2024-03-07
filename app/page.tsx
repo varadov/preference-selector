@@ -7,12 +7,13 @@ export default function Home() {
     <main className="flex flex-col items-center justify-center h-screen">
       <Card className="w-[500px] flex flex-wrap items-start gap-2 p-6">
         {categories.map((category) => (
-          <Category key={category.id} name={category.name} icon={category.icon}>
+          <Category key={category.id} name={category.name} icon={category.icon} tabIndex={0}>
             {category.subCategories?.map((subCategory) => (
               <Category
                 key={subCategory.id}
                 name={subCategory.name}
                 icon={subCategory.icon}
+                tabIndex={0}
               />
             ))}
           </Category>
